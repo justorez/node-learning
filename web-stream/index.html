@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Demo</title>
+</head>
+<body>
+  <h1 id="info">My Demo</h1>
+  <button id="btn">点我发送</button>
+  <script type="text/javascript">
+    let info = document.querySelector('#info')
+    document.querySelector('#btn').onclick = () => {
+      let xhr = new XMLHttpRequest()
+      xhr.open('get', '/test')
+      xhr.send()
+      xhr.onreadystatechange = () => {
+        // console.log(xhr.readyState)
+        // console.log(xhr.responseText)
+        let arr = xhr.responseText.split('\n')
+        let timestamp = Number(arr[arr.length-2])
+        if (Number.isInteger(timestamp)) {
+          let time = new Date()
+          info.innerText = `${time.toLocaleDateString()} ${time.toLocaleTimeString()}`
+        } else {
+          info.innerText = '错误时间戳'
+        }
+      }
+    }
+  </script>
+</body>
+</html>
