@@ -77,8 +77,8 @@ router
       let latitude_r = location[0] - 0;
       console.log(longitude_l, latitude_r);
       
-      // 存储 img: 网络能请求道的路径    img/uploadxxx.js
-      let img = 'imgs/' + filename;
+      // 存储 img: 网络能请求道的路径    upload/uploadxxx.js
+      let img = 'upload/' + filename;
 
       db.insert('heros', [{
         nickname,
@@ -106,7 +106,7 @@ router
 
 // 处理图片
 app.use(express.static('./public'));
-// /imgs/upload_5304f504b298af0f0330f9d0c77ea3c9.jpg
+// /upload/upload_5304f504b298af0f0330f9d0c77ea3c9.jpg
 
 app.use(router);
 
@@ -117,6 +117,6 @@ app.use((err, req, res, next) => {
   res.send('<h1>亲爱的用户，您访问的页面，有事儿了,<a href="/">去首页看看?</a></h1>');
 });
 
-server.listen(3400, () => {
-  console.log('3400')
+server.listen(2333, () => {
+  console.log('http://localhost:2333');
 });

@@ -6,9 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aloneZERO/Node.js-Learning.git"
+  },
   "author": "justZero",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
-    "express": "^4.17.1"
+    "art-template": "^4.13.2",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "formidable": "^1.2.1",
+    "mongodb": "^3.3.5"
   }
 }
