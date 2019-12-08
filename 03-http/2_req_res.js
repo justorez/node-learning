@@ -23,7 +23,7 @@ server.on('request', (req, res) => {
   res.writeHead(200)
   
   // 写体
-  let content = fs.readFileSync('./assets/temp.txt','utf8')
+  let content = fs.readFileSync('../assets/temp.txt','utf8')
   res.write(content);
   
   res.end('\nxxx')

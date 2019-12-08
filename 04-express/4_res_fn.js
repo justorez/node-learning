@@ -18,7 +18,7 @@ router
 .get('/download', (req, res) => {
   // 文件是如何被下载成功的
   // 基于服务器响应的 content-type 等头信息
-  res.download('./assets/雪中悍刀行.epub');
+  res.download('../assets/雪中悍刀行.epub');
 })
 .get('/jsonp', (req, res) => {
   res.jsonp('jack & rose');

@@ -2,6 +2,7 @@ const http = require('http')
 const fs = require('fs')
 
 http.createServer((req, res) => {
+  // if-else 实现简易路由
   if (req.url === '/') {
     fs.readFile('./index.html', (err,data) => {
       res.writeHead(200, {
