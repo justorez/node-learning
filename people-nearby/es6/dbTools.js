@@ -32,7 +32,7 @@ tool.find = async (c_name, filter, fn) => {
   return await col.find(filter).toArray();
 }
 
-tool.findNear = (c_name, filter, fn) => {
+tool.findNear = async (c_name, filter, fn) => {
   let col = _getCollection(c_name);
   let cursor = await col.aggregate({
     $geoNear: {

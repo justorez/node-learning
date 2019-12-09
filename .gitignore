@@ -1,7 +1,8 @@
 # mine
 docs/
 package-lock.json
-**/package-lock.json
+people-nearby/public/upload
+!people-nearby/public/upload/.gitkeep
 
 # Logs
 logs
