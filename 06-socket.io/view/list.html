@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Room</title>
+  <style>
+    .username {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <ul id="list">
+      {{each msgs}}
+        <li>{{$value.username}}:&nbsp;{{$value.content}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <span class="username">{{username}}</span>，请说话: <input type="text" name="newContent" id="newContent"> <button id="btn">发送</button>
+
+  <script type="text/javascript">
+    document.querySelector('#btn').onclick = function () {
+      var newContent = document.querySelector('#newContent').value;
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', '/add');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      xhr.send('msg=' + newContent);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // console.log(xhr.responseText);
+          var arr = JSON.parse(xhr.responseText);
+          var listDOM = document.querySelector('#list');
+          var newChild = document.createElement('li');
+          newChild.innerText = `${arr[arr.length-1].username}: ${arr[arr.length-1].content}`
+          listDOM.appendChild(newChild);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
