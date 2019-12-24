@@ -71,7 +71,7 @@ let store = {
 // 配置静态资源
 app.use(static(path.resolve('./public')));
 // 处理session，注意放在路由配置之前
-app.use(session({store},app,));
+app.use(session({store},app));
 // 处理请求体数据
 app.use(bodyParser());
 // 配置路由

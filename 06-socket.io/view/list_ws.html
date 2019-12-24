@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Room</title>
+  <style>
+    .username {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <ul id="list">
+      {{each msgs}}
+        <li>{{$value.username}}:&nbsp;{{$value.content}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <span class="username">{{username}}</span> &gt;&gt;
+  <input type="text" name="newContent" id="newContent">
+  <button id="btn">发送</button> <button id="btn-exit">下线</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let listDOM = document.querySelector('#list');
+    let userId = {{id}};
+
+    let socket = io('http://localhost:8080');
+    socket.on('connect', () => {
+      console.log('已连接...');
+      // 登录，同步前后端信息
+      socket.emit('login', { id: userId});
+    });
+    socket.on('disconnect', () => {
+      console.log('断开连接...');
+    });
+
+    // 监听服务器自定义事件
+    socket.on('msg', data => {
+      console.log(data);
+    });
+    socket.on('allMsg', data => {
+      let newChild = document.createElement('li');
+      newChild.innerText = `${data.username}: ${data.content}`
+      listDOM.appendChild(newChild);
+    });
+
+    document.querySelector('#btn').onclick = () => {
+      let input = document.getElementById('newContent');
+      let msg = input.value;
+      socket.emit('sendMsg', msg);
+      input.value = '';
+    };
+    document.querySelector('#btn-exit').onclick = () => {
+      socket.emit('exit', userId);
+      socket.close();
+      window.location.href = '/';
+    };
+  </script>
+</body>
+
+</html>

@@ -26,21 +26,25 @@
     </ul>
   </div>
 
-  <span class="username">{{username}}</span>，请说话: <input type="text" name="newContent" id="newContent"> <button id="btn">发送</button>
+  <span class="username">{{username}}</span> &gt;&gt; <input type="text" name="newContent" id="newContent"> <button id="btn">发送</button>
 
   <script type="text/javascript">
-    document.querySelector('#btn').onclick = function () {
-      var newContent = document.querySelector('#newContent').value;
-      var xhr = new XMLHttpRequest();
+    let listDOM = document.querySelector('#list');
+    let input = document.querySelector('#newContent');
+
+    document.querySelector('#btn').onclick = () => {
+      let newContent = input.value;
+      input.value = "";
+
+      let xhr = new XMLHttpRequest();
       xhr.open('post', '/add');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
       xhr.send('msg=' + newContent);
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
           // console.log(xhr.responseText);
-          var arr = JSON.parse(xhr.responseText);
-          var listDOM = document.querySelector('#list');
-          var newChild = document.createElement('li');
+          let arr = JSON.parse(xhr.responseText);
+          let newChild = document.createElement('li');
           newChild.innerText = `${arr[arr.length-1].username}: ${arr[arr.length-1].content}`
           listDOM.appendChild(newChild);
         }
