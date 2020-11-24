@@ -1,5 +1,15 @@
 // 接收命令行参数
 
+/**
+ * process.argv
+ * [
+ *    node_path,
+ *    js_file_path,
+ *    arg1,
+ *    arg2,
+ *    ...
+ * ]
+ */
 // console.log(process.argv)
 
 // 命令行加法计算器
@@ -13,5 +23,5 @@ console.log('计算中......')
 
 setTimeout(() => {
   console.log(`结果：${sum}`)
-}, 2000)
+}, 1500)
 

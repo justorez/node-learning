@@ -1,13 +1,20 @@
-const fs = require('fs');
+const glob = require('glob');
+const path = require('path');
 
-console.log('同步读取前...');
-// 阻塞
-fs.readFileSync('../assets/雪中悍刀行.epub');
-console.log('同步读取以后执行的工作...');
+const root = path.resolve(__dirname, '../');
 
-console.log('异步读取前...');
-fs.readFile('../assets/雪中悍刀行.epub', (err,data) => {
-  if (err) throw err;
-  console.log('异步读取成功！');
+console.time('sync');
+const res = glob.sync(root + '/**/*'); // 阻塞
+console.log(`[sync] ${res.length}`);
+console.timeEnd('sync');
+
+console.log();
+
+console.time('async');
+glob(root + '/**/*', (err, res) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(`[async] ${res.length}`);
 });
-console.log('异步读取以后执行的工作...');
+console.timeEnd('async');
