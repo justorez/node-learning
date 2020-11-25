@@ -3,7 +3,8 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    node: true
+    node: true,
+    jquery: true
   },
   extends: "eslint:recommended",
   globals: {
@@ -15,7 +16,10 @@ module.exports = {
   },
   rules: {
     "no-console": "off",
-    // "semi": ["error", "always"],
-    "no-unused-vars": "off"
-  }
+    "no-unused-vars": "off",
+    "no-debugger": "warn"
+  },
+  plugins: [
+    'html'
+  ]
 }

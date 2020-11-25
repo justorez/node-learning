@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>石头剪刀布</title>
+  <style>
+    .box {
+      width: 350px;
+      height: 400px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px dashed black;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: rgb(211, 203, 203);
+      overflow-y: auto;
+    }
+    .box::-webkit-scrollbar {
+      display: none;
+      width: 5px;
+      height: 8px;
+    }
+    .box::-webkit-scrollbar-thumb {
+      height: 20px;
+      background: rgb(176 169 169);
+      border-radius: 8px;
+    }
+    /* .box:hover::-webkit-scrollbar {
+      display: initial;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+  <button type="rock">石头</button>
+  <button type="scissor">剪刀</button>
+  <button type="paper">布</button>
+  <button type="badguy">耍赖</button>
+
+  <script>
+    const box = document.querySelector('.box');
+
+    document.querySelectorAll('button').forEach(el => {
+      el.onclick = () => {
+        const type = el.getAttribute('type');
+        fetch(`/game?action=${type}`)
+          .then(res => {
+            return res.text();
+          })
+          .then(res => {
+            box.append(res);
+            box.append(document.createElement('br'));
+          })
+          .catch(err => {
+            alert(err);
+          })
+      }
+    })
+  </script>
+</body>
+
+</html>

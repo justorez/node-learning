@@ -14,25 +14,25 @@ server.set('view engine', '.html');
 let router = express.Router();
 
 router
-.get('/', (req, res, next) => {
-  res.render('index');
-})
-.get('/error', (req, res, next) => {
-  console.log('请求进来了？', req.url);
-  // 假如获取文件
-  let errorPath = './abc/e.txt';
-  try {
-    fs.readFileSync(errorPath);
+  .get('/', (req, res, next) => {
     res.render('index');
-  } catch (err) {
-    // throw err;  // 不能直接返回给用户异常
-    next(err); // 触发一个具备4个参数的中间件函数
-  }
-})
-// all-所有的请求方式
-.all('*', (req, res) => {
-  res.send('404 警告！');
-})
+  })
+  .get('/error', (req, res, next) => {
+    console.log('请求进来了？', req.url);
+    // 假如获取文件
+    let errorPath = './abc/e.txt';
+    try {
+      fs.readFileSync(errorPath);
+      res.render('index');
+    } catch (err) {
+      // throw err;  // 不能直接返回给用户异常
+      next(err); // 触发一个具备4个参数的中间件函数
+    }
+  })
+  // all-所有的请求方式
+  .all('*', (req, res) => {
+    res.send('404 警告！');
+  })
 
 // 要把 public 下的文件暴露出来
 server.use('/public', express.static('./public'));
