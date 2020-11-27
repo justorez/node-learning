@@ -49,8 +49,11 @@
       el.onclick = () => {
         const type = el.getAttribute('type');
         fetch(`/game?action=${type}`)
-          .then(res => {
-            return res.text();
+          .then(async (res) => {
+            if (res.ok) {
+              return res.text();
+            }
+            throw await res.text();
           })
           .then(res => {
             box.append(res);
