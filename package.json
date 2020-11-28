@@ -27,7 +27,8 @@
     "koa-session": "^5.12.3",
     "koa-socket-2": "^1.2.0",
     "koa-static": "^5.0.0",
-    "mongodb": "^3.3.5"
+    "mongodb": "^3.3.5",
+    "protocol-buffers": "^4.2.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",

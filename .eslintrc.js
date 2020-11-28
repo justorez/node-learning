@@ -17,7 +17,8 @@ module.exports = {
   rules: {
     "no-console": "off",
     "no-unused-vars": "off",
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "no-cond-assign": "off"
   },
   plugins: [
     'html'
