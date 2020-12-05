@@ -1,0 +1,19 @@
+{
+  "name": "faketime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bff": "node BFF/index.js",
+    "microservice": "node backend/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "easy_sock": "^0.3.8",
+    "koa": "^2.10.0",
+    "koa-mount": "^4.0.0",
+    "koa-static": "^5.0.0",
+    "protocol-buffers": "^4.1.0"
+  }
+}
