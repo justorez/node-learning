@@ -27,5 +27,5 @@ server
     });
   })
   .listen(4000, () => {
-    console.log('rpc server listened: 4000')
+    console.log('rpc server listening on 4000')
   });

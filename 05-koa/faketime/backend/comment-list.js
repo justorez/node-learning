@@ -17,5 +17,5 @@ server
     response.end({ comments: commentData });
   })
   .listen(4001, () => {
-    console.log('rpc server listened: 4001')
+    console.log('rpc server listening on 4001')
   });

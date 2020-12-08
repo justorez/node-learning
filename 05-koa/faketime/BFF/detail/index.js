@@ -7,9 +7,10 @@ const detailTemplate = template(__dirname + '/template/index.html');
 
 app.use(async (ctx) => {
   if (!ctx.query.columnid) {
-    ctx.status = 400;
-    ctx.body = 'invalid columnid';
-    return
+    // ctx.status = 400;
+    // ctx.body = 'invalid columnid';
+    ctx.redirect('/detail?columnid=1');
+    return;
   }
 
   const result = await new Promise((resolve, reject) => {
@@ -18,7 +19,7 @@ app.use(async (ctx) => {
     }, function (err, data) {
       err ? reject(err) : resolve(data)
     })
-  })
+  });
 
   ctx.status = 200;
   ctx.body = detailTemplate(result);

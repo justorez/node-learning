@@ -28,5 +28,5 @@ server
     });
   })
   .listen(4002, () => {
-    console.log('rpc server listened: 4002')
+    console.log('rpc server listening on 4002')
   });

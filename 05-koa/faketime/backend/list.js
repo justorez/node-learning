@@ -43,5 +43,5 @@ server
     });
   })
   .listen(4003, () => {
-    console.log('rpc server listened: 4003')
+    console.log('rpc server listening on 4003')
   });
