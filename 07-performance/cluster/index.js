@@ -18,9 +18,10 @@ if (cluster.isMaster) {
   require('./app');
 
   process.on('message', (msg) => {
-    if (msg === 'ping') {
+    // 回应心跳
+    if (msg === `ping#${process.pid}`) {
       console.log(`[pong] #${process.pid}`);
-      process.send('pong');
+      process.send(`pong#${process.pid}`);
     }
   })
 
@@ -55,7 +56,7 @@ function checkHeartbeat(worker) {
     }
 
     console.log(`[ping] #${worker.process.pid}`);
-    worker.send('ping');
+    worker.send(`ping#${worker.process.pid}`);
     missedPing++;
 
     if (missedPing >= 3) {
@@ -68,7 +69,7 @@ function checkHeartbeat(worker) {
   }, 3000);
 
   worker.on('message', (msg) => {
-    if (msg === 'pong') {
+    if (msg === `pong#${worker.process.pid}`) {
       missedPing--;
     }
   });
