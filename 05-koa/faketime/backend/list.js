@@ -28,18 +28,9 @@ server
 
           } else if (sortType == 3) {
             return a.column_price - b.column_price
-
-          }
-
-        })
-        .filter((item) => {
-          if (filtType == 0) {
-            return item
-
-          } else {
-            return item.type == filtType
           }
         })
+        .filter((item) => (filtType == 0) ? item : (item.type == filtType))
     });
   })
   .listen(4003, () => {

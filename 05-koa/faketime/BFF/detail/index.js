@@ -1,7 +1,7 @@
 const mount = require('koa-mount');
 const app = new (require('koa'));
 const rpcClient = require('./client');
-const template = require('./template');
+const template = require('../utils/template');
 
 const detailTemplate = template(__dirname + '/template/index.html');
 

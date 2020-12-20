@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bff": "node BFF/index.js",
+    "build:list": "webpack --config BFF/list/browser/webpack.config.js --progress",
+    "bff": "npm run build:list && node BFF/index.js",
     "bff:profile": "node --prof BFF/index.js",
     "bff:debug": "node --inspect-brk BFF/index.js",
     "microservice": "node backend/index.js"
@@ -12,12 +13,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/register": "^7.12.10",
     "easy_sock": "^0.3.8",
     "graphql": "^15.4.0",
     "koa": "^2.10.0",
     "koa-graphql": "^0.8.0",
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
-    "protocol-buffers": "^4.1.0"
+    "protocol-buffers": "^4.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0"
   }
 }

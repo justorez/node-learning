@@ -22,6 +22,10 @@ app.use(
 );
 
 app.use(
+  mount('/list', require('./list'))
+);
+
+app.use(
   mount('/', async (ctx) => {
     ctx.body = fs.readFileSync(`${__dirname}/index.html`, 'utf-8')
   })
