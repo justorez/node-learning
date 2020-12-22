@@ -1,43 +1,48 @@
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const webpack = require('webpack');
-const mfs = new (require('memory-fs'));
+const path =require('path')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
+const webpack = require('webpack')
+const mfs = new (require('memory-fs'))
 
 module.exports = function (
-    businessName,
-    dataJSPath,
-    templatePath
+  businessName,
+  dataJSPath,
+  templatePath
 ) {
-    mkdirp.sync(__dirname + '/../business/' + businessName);
+  const distPath = path.join(__dirname, '../business', businessName)
 
-    fs
-        .createReadStream(templatePath)
-        .pipe(fs.createWriteStream(__dirname + '/../business/' + businessName + '/template.tpl'));
+  mkdirp.sync(distPath)
 
-    const compileTask = webpack({
-        mode: 'development',
-        devtool: false,
-        target: 'node',
+  fs.createReadStream(templatePath)
+    .pipe(fs.createWriteStream(`${distPath}/template.tpl`))
 
-        entry: dataJSPath,
+  const compileTask = webpack({
+    mode: 'production',
+    devtool: false,
+    target: 'node',
 
-        module: {
-            rules: [
-                { test: /.proto$/, use: 'text-loader' }
-            ]
-        },
+    entry: dataJSPath,
 
-        output: {
-            path: "/whatever",
-            filename: "data.js"
-        }
-    });
+    module: {
+      rules: [
+        { test: /.proto$/, use: 'text-loader' }
+      ]
+    },
 
-    compileTask.outputFileSystem = mfs;
+    output: {
+      path: "/whatever",
+      filename: "data.js"
+    }
+  })
 
-    compileTask.run(function(err) {
-        if (err) { return }
-        const content = mfs.readFileSync('/whatever/data.js')
-        fs.writeFileSync(__dirname + '/../business/' + businessName + '/data.js', content);
-    })
+  compileTask.outputFileSystem = mfs
+
+  compileTask.run(function (err) {
+    if (err) {
+      return
+    }
+
+    const content = mfs.readFileSync('/whatever/data.js')
+    fs.writeFileSync(`${distPath}/data.js`, content);
+  })
 }
