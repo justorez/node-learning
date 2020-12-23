@@ -1,29 +1,33 @@
 const server = require('./run')
-const fs = require('fs');
+const fs = require('fs')
+const path = require('path')
 
-(async function () {
+const test = async () => {
 
-    const data = await new Promise((resolve) => {
-        fs.readFile(
-            __dirname + '/../business/play/data.js', "utf-8",
-            function (err, data) {
-                resolve(data);
-            }
-        )
-    })
-    const template = await new Promise((resolve) => {
-        fs.readFile(
-            __dirname + '/../business/play/template.tpl', "utf-8",
-            function (err, data) {
-                resolve(data);
-            }
-        )
-    })
+  // 模拟从云端拉取业务代码
+  const rootPath = path.join(__dirname, '../business/play')
 
-    server({
-        '/play': {
-            data,
-            template
-        }
-    });
-})()
+  const data = await new Promise((resolve) => {
+    fs.readFile(
+      path.join(rootPath, 'data.js'), 'utf-8',
+      (err, data) => resolve(data)
+    )
+  })
+
+  const template = await new Promise((resolve) => {
+    fs.readFile(
+      path.join(rootPath, 'template.tpl'), 'utf-8',
+      (err, data) => resolve(data)
+    )
+  })
+
+  // 启动云服务
+  server({
+    '/play': {
+      data,
+      template
+    }
+  })
+}
+
+test()

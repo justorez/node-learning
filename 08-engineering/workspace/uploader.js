@@ -17,32 +17,36 @@ module.exports = function (
     .pipe(fs.createWriteStream(`${distPath}/template.tpl`))
 
   const compileTask = webpack({
-    mode: 'production',
+    mode: 'development',
     devtool: false,
     target: 'node',
-
     entry: dataJSPath,
-
     module: {
       rules: [
         { test: /.proto$/, use: 'text-loader' }
       ]
     },
-
     output: {
-      path: "/whatever",
-      filename: "data.js"
+      path: '/whatever',
+      filename: 'data.js'
     }
   })
 
   compileTask.outputFileSystem = mfs
 
-  compileTask.run(function (err) {
+  compileTask.run((err, stats) => {
     if (err) {
-      return
+      return console.error(err)
     }
 
     const content = mfs.readFileSync('/whatever/data.js')
-    fs.writeFileSync(`${distPath}/data.js`, content);
+    fs.writeFileSync(`${distPath}/data.js`, content)
+
+    const result = stats.toString({
+      colors: true,
+      modules: false,
+      children: false
+    })
+    console.log(result, '\n\n')
   })
 }

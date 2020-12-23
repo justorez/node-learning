@@ -1,14 +1,15 @@
-const request = require('request');
+const request = require('request')
 
-let url = '';
+let url = ''
+
 module.exports = {
-    compile: function (config) { url = config.url },
-    request: async function (data) {
+  compile: (config) => url = config.url,
 
-        return await new Promise((resolve, reject) => {
-            request(url, (err, data) => {
-                err ? reject(err) : resolve(data.body);
-            })
-        })
-    }
+  request: async (data) => {
+    return await new Promise((resolve, reject) => {
+      request(url, (err, data) => {
+        err ? reject(err) : resolve(data.body);
+      })
+    })
+  }
 }

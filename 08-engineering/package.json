@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build:business": "node workspace/build.js"
+    "backend": "node backend/run.js",
+    "backend:debug": "node --inspect-brk backend/run.js",
+    "build:business": "node workspace/build.js",
+    "test": "npm run build:business && node server/test.js"
   },
   "author": "",
   "license": "ISC",
