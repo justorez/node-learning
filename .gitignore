@@ -1,6 +1,5 @@
-# mine
+# Custom
 docs/
-package-lock.json
 people-nearby/public/upload
 !people-nearby/public/upload/.gitkeep
 
